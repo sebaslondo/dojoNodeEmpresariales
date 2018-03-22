@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>PSP</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+        crossorigin="anonymous">
+    <link rel="stylesheet" href="https://bootswatch.com/4/lux/bootstrap.min.css">
+</head>
+
+<body>
+
+    <div class="container mt-5">
+
+        <div class="jumbotron">
+
+            <h3 class="display-5 text-center mb-5">laboratorio 1</h3>
+            <form id="formulary">
+                <div class="form-group has-danger">
+                    <textarea id="T_area" name="text" class="form-control" rows="3"></textarea>
+					<div id="T_area_error" class="invalid-feedback"></div>
+                </div>
+                <div class="d-flex">
+
+                    <div class="mr-auto">
+                        <div>
+                            <span class="text-primary">Media: </h6>
+                                <span id="media"></span>
+                        </div>
+                        <div>
+                            <span class="text-primary">Desviacion: </h6>
+                                <span id="desviacion"></span>
+                        </div>
+                    </div>
+
+                    <div>
+                        <button id="btn" type="button" class="btn btn-primary btn-md float-right ">calcular</button>
+                    </div>
+                </div>
+            </form>
+
+        </div>
+    </div>
+
+    <script>
+
+        document.getElementById("btn").addEventListener("click", function () {
+            const { process } = require('./src/process');
+
+			let textArea =  document.getElementById("T_area");
+            let text = textArea.value;
+            let result = process(text);
+
+			if (result.mean || result.deviation) {
+				textArea.classList.remove('is-invalid');
+				document.getElementById("media").textContent = result.mean;
+	            document.getElementById("desviacion").textContent = result.deviation;
+			}  else {
+				textArea.classList.add('is-invalid');
+				document.getElementById("T_area_error").innerHTML = result;
+				document.getElementById("media").textContent = '';
+	            document.getElementById("desviacion").textContent = '';
+			}
+        });
+
+    </script>
+
+</body>
+
+</html>
